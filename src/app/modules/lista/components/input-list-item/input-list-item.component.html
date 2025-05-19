@@ -1,0 +1,16 @@
+@for(item of inputListItems; track item){
+<label class="input-label-text" [for]="item.id">
+  <input
+    type="checkbox"
+    #inputCheckbox
+    [checked]="item.checked"
+    (input)="updateItemCheckbox(item.id, inputCheckbox.checked)"
+  />
+   <span>
+    {{ item.value }}
+    <small *ngIf="item.date"> - {{ item.date | date: 'dd/MM/yyyy' }}</small>
+  </span>
+
+  <button class="btn btn-danger-circle" title="Delete este item" (click)="deleteItem(item.id)"></button>
+</label>
+}
