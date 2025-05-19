@@ -6,15 +6,10 @@
     [checked]="item.checked"
     (input)="updateItemCheckbox(item.id, inputCheckbox.checked)"
   />
-  <input
-    type="text"
-    #inputValue
-    [id]="item.id"
-    [value]="item.value"
-    placeholder="Adicione um valor"
-    autofocus
-    (input)="updateItemText(item.id, inputValue.value)"
-  />
+   <span>
+    {{ item.value }}
+    <small *ngIf="item.date"> - {{ item.date | date: 'dd/MM/yyyy' }}</small>
+  </span>
 
   <button class="btn btn-danger-circle" title="Delete este item" (click)="deleteItem(item.id)"></button>
 </label>

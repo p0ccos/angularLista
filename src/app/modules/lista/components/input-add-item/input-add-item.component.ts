@@ -6,7 +6,7 @@ import {
   Input,
   Output,
   ViewChild,
-  Inject, 
+  inject, 
 
  } from '@angular/core';
 
@@ -21,9 +21,10 @@ import { IListItems } from '../../interface/IListItens.interface';
   styleUrl: './input-add-item.component.scss'
 })
 export class InputAddItemComponent {
-  #cdr = Inject(ChangeDetectorRef);
+  #cdr = inject(ChangeDetectorRef);
 
   @ViewChild('inputText') public inputText!: ElementRef;
+  public dataSelecionada: string = '';
 
   @Input({ required: true }) public inputListItems: IListItems[] = [];
 
@@ -33,18 +34,17 @@ export class InputAddItemComponent {
       this.#cdr.detectChanges();
       this.inputText.nativeElement.value = '';
 
-      const currentDate = new Date();
-      const timestamp = currentDate.getTime();
-      const id = `ID ${timestamp}`;
+      const id = `ID ${Date.now()}`;
 
       this.outputAddListItem.emit({
         id,
         checked: false,
         value,
+        date: this.dataSelecionada
       });
 
+      this.dataSelecionada = ''; // limpa o campo data
       return this.inputText.nativeElement.focus();
     }
   }
-
-}
+    }
